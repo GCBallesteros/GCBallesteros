@@ -1,4 +1,4 @@
-<div align="center"> <img src="./banner/horizon_man_looking_hypercube/banner.gif"> </div>
+<div align="center"> <img src="./banner/horizon_man_looking_hypercube/banner.gif" loop=infinite> </div>
 
 I'm a Data Scientist and Scientific Software Developer with a knack for
 optimization. I enjoy it the most when I work where engineering and software
