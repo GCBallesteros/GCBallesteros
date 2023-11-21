@@ -1,4 +1,10 @@
-<div align="center"> <img src="./banner/horizon_man_looking_hypercube/banner.gif" loop=infinite> </div>
+<picture>
+ <source media="(prefers-color-scheme: dark)" srcset="./banner/horizon_man_looking_hypercube/banner.gif">
+ <source media="(prefers-color-scheme: light)" srcset="./banner/horizon_man_looking_hypercube/inverted_banner.gif">
+ <img alt="man-looking-at-rotating-hypercube" src="./banner/horizon_man_looking_hypercube/banner.gif">
+</picture>
+
+<div align="center"> <img src= loop=infinite> </div>
 
 I'm a Data Scientist and Scientific Software Developer with a knack for
 optimization. I enjoy it the most when I work where engineering and software
