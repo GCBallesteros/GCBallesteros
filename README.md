@@ -4,8 +4,6 @@
  <img alt="man-looking-at-rotating-hypercube" src="./banner/horizon_man_looking_hypercube/banner.gif">
 </picture>
 
-<div align="center"> <img src= loop=infinite> </div>
-
 I'm a Data Scientist and Scientific Software Developer with a knack for
 optimization. I enjoy it the most when I work where engineering and software
 development intersect. In my free time you will find me learning new
