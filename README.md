@@ -20,7 +20,7 @@ helping build a constellation of hyperspectral cubesats
 
 ### Open Source Projects 
 
-Total ⭐: 151
+Total ⭐: 150
 
 #### Scientific algorithms (Σ⭐=20)
   - [readPTU](https://www.github.com/QuantumPhotonicsLab/readPTU) (⭐ 11): <img src="https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white" height="18" style="vertical-align: middle;"> Code developed during my PhD to analyze multi-GB photon correlation experimental data very quick. [Check the paper!](https://iopscience.iop.org/article/10.1088/1748-0221/14/06/T06011/meta)
@@ -30,8 +30,8 @@ Total ⭐: 151
   - [foureg](https://www.github.com/GCBallesteros/foureg) (⭐ 0): <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" height="18" style="vertical-align: middle;"> GPU/Pytorch reimplementation of matejak/imreg focusing on performance and production-ready features
   - ... and more
 
-#### Neovim (Σ⭐=107)
-  - [NotebookNavigator.nvim](https://www.github.com/GCBallesteros/NotebookNavigator.nvim) (⭐ 74): <img src="https://img.shields.io/badge/lua-%232C2D72.svg?style=for-the-badge&logo=lua&logoColor=white" height="18" style="vertical-align: middle;"> VSCode style code cells for neovim and functions to manipulate them
+#### Neovim (Σ⭐=106)
+  - [NotebookNavigator.nvim](https://www.github.com/GCBallesteros/NotebookNavigator.nvim) (⭐ 73): <img src="https://img.shields.io/badge/lua-%232C2D72.svg?style=for-the-badge&logo=lua&logoColor=white" height="18" style="vertical-align: middle;"> VSCode style code cells for neovim and functions to manipulate them
   - [vim-textobj-hydrogen](https://www.github.com/GCBallesteros/vim-textobj-hydrogen) (⭐ 25): <img src="https://img.shields.io/badge/VIM-%2311AB00.svg?style=for-the-badge&logo=vim&logoColor=white" height="18" style="vertical-align: middle;"> An extension to vim-textobj to add code cell objects
   - [jupytext.vim](https://www.github.com/GCBallesteros/jupytext.vim) (⭐ 7): <img src="https://img.shields.io/badge/VIM-%2311AB00.svg?style=for-the-badge&logo=vim&logoColor=white" height="18" style="vertical-align: middle;"> A fork from goerz/jupytext.vim to add support for different jupytext styles
   - [machinegun.nvim](https://www.github.com/GCBallesteros/machinegun.nvim) (⭐ 1): <img src="https://img.shields.io/badge/lua-%232C2D72.svg?style=for-the-badge&logo=lua&logoColor=white" height="18" style="vertical-align: middle;"> A plugin to make it easy to write multi-user/machine configurations
