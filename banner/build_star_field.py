@@ -11,7 +11,8 @@ Star = namedtuple(
     [
         "freq_weights",
         "freq_phases",
-        "intensity",
+        "min_intensity",
+        "max_intensity",
         "size",
         "row",
         "col",
@@ -19,10 +20,10 @@ Star = namedtuple(
 )
 
 MASK = Path("./mask.png")
-N_STARS = 250
+N_STARS = 200
 POISSON_RADIUS = 0.05
 WEIGHTS_RANDOM_FACTOR = 0.5
-WEIGHTS_DECAY = 0.5
+WEIGHTS_DECAY = 0.3
 BLUR_KERNEL_SIZE = 7
 N_FRAMES = len(list(Path("./hypercube_frames").glob("*.png")))
 OUTPUT_PATH = Path("./star_field_frames/")
@@ -44,8 +45,8 @@ def create_stars(
     msk_near_border = (
         (star_positions[:, 0] < 0.05)
         | (star_positions[:, 0] > 0.95)
-        | (star_positions[:, 1] < 0.05)
-        | (star_positions[:, 1] > 0.95)
+        | (star_positions[:, 1] < 0.03)
+        | (star_positions[:, 1] > 0.97)
     )
 
     star_positions = star_positions[~msk_near_border]
@@ -66,7 +67,8 @@ def create_stars(
         Star(
             make_random_normalized_vec(n_harmonics),
             np.random.rand(n_harmonics) * np.pi,
-            np.random.rand(),
+            0.1,
+            1 - np.random.rand() * 0.1,
             np.random.rand(),
             pos[0],
             pos[1],
@@ -91,11 +93,14 @@ def make_star_frame(
 
     star_cutout = np.zeros((cutout_size,) * 2)
     # not 2 pi because the square doubles the freq
+    dynamic_range = star.max_intensity - star.min_intensity
     star_cutout[half_cutout_size, half_cutout_size] = np.sum(
         # Fourier sum
         [
-            (1 + np.cos(2 * np.pi * freq * t + freq_phase))
-            * star.intensity
+            (
+                (np.cos(2 * np.pi * freq * t + freq_phase) + 1) * (dynamic_range / 2)
+                + star.min_intensity
+            )
             * freq_weight
             for freq_weight, freq_phase, freq in zip(
                 star.freq_weights, star.freq_phases, harmonic_freqs
