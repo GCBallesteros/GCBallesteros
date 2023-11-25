@@ -4,8 +4,8 @@ from pathlib import Path
 import cv2
 import numpy as np
 import numpy.typing as npt
+from scipy.stats.qmc import PoissonDisk
 
-BBox = namedtuple("BBox", ["top", "bottom", "left", "right"])
 Star = namedtuple(
     "Star",
     [
@@ -19,7 +19,10 @@ Star = namedtuple(
 )
 
 MASK = Path("./mask.png")
-N_STARS = 170
+N_STARS = 250
+POISSON_RADIUS = 0.05
+WEIGHTS_RANDOM_FACTOR = 0.5
+WEIGHTS_DECAY = 0.5
 BLUR_KERNEL_SIZE = 7
 N_FRAMES = len(list(Path("./hypercube_frames").glob("*.png")))
 OUTPUT_PATH = Path("./star_field_frames/")
@@ -27,34 +30,34 @@ N_HARMONICS = 4
 
 # TODO: Missing parameters for exponential distro
 
+
 def create_stars(
     n_stars: int,
     out_shape: tuple[int, int],
-    n_harmonics,
+    n_harmonics: int,
+    poisson_disk_radius: float,
+    weights_randomness: float,
 ) -> list[Star]:
-    star_field_area = BBox(
-        int(0.05 * out_shape[0]),
-        int(0.95 * out_shape[0]),
-        int(0.02 * out_shape[1]),
-        int(0.98 * out_shape[1]),
+    engine = PoissonDisk(d=2, radius=poisson_disk_radius, seed=42, optimization="lloyd")
+    star_positions = engine.random(n_stars)
+
+    msk_near_border = (
+        (star_positions[:, 0] < 0.05)
+        | (star_positions[:, 0] > 0.95)
+        | (star_positions[:, 1] < 0.05)
+        | (star_positions[:, 1] > 0.95)
     )
 
-    star_positions = np.random.rand(n_stars, 2)
-    star_positions *= np.array(
-        (
-            star_field_area.bottom - star_field_area.top,
-            star_field_area.right - star_field_area.left,
-        )
-    ).astype(np.int64)
-
-    star_positions += np.array((star_field_area.top, star_field_area.left))
+    star_positions = star_positions[~msk_near_border]
+    star_positions[:, 0] *= out_shape[0]
+    star_positions[:, 1] *= out_shape[1]
     star_positions = star_positions.astype(np.int64)
 
     # Generate frequency that is perfectly periodic
     def make_random_normalized_vec(n):
-        arr = 1 + (np.random.rand(n) - 0.5) * 0.5
+        arr = 1 + (np.random.rand(n) - 0.5) * weights_randomness
         # give more weight to lower freqs
-        arr = arr * np.exp(-np.arange(n) * 0.5)
+        arr = arr * np.exp(-np.arange(n) * WEIGHTS_DECAY)
         # normalize
         arr /= arr.sum()
         return arr
@@ -119,7 +122,9 @@ def make_star_frame(
 
 
 mask: npt.NDArray = cv2.imread(str(MASK))[:, :, 0]
-stars = create_stars(N_STARS, mask.shape, N_HARMONICS)
+stars = create_stars(
+    N_STARS, mask.shape, N_HARMONICS, POISSON_RADIUS, WEIGHTS_RANDOM_FACTOR
+)
 
 for frame_idx in range(N_FRAMES):
     star_field = np.zeros(mask.shape, dtype=np.float64)
