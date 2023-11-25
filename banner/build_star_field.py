@@ -19,12 +19,13 @@ Star = namedtuple(
 )
 
 MASK = Path("./mask.png")
-N_STARS = 150
+N_STARS = 170
 BLUR_KERNEL_SIZE = 7
 N_FRAMES = len(list(Path("./hypercube_frames").glob("*.png")))
 OUTPUT_PATH = Path("./star_field_frames/")
-N_HARMONICS = 3
+N_HARMONICS = 4
 
+# TODO: Missing parameters for exponential distro
 
 def create_stars(
     n_stars: int,
@@ -51,9 +52,9 @@ def create_stars(
 
     # Generate frequency that is perfectly periodic
     def make_random_normalized_vec(n):
-        arr = np.random.rand(n)
+        arr = 1 + (np.random.rand(n) - 0.5) * 0.5
         # give more weight to lower freqs
-        arr = np.exp(-np.arange(n) * 0.5)
+        arr = arr * np.exp(-np.arange(n) * 0.5)
         # normalize
         arr /= arr.sum()
         return arr
@@ -119,7 +120,6 @@ def make_star_frame(
 
 mask: npt.NDArray = cv2.imread(str(MASK))[:, :, 0]
 stars = create_stars(N_STARS, mask.shape, N_HARMONICS)
-
 
 for frame_idx in range(N_FRAMES):
     star_field = np.zeros(mask.shape, dtype=np.float64)
