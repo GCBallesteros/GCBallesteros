@@ -7,7 +7,15 @@ import numpy.typing as npt
 
 BBox = namedtuple("BBox", ["top", "bottom", "left", "right"])
 Star = namedtuple(
-    "Star", ["blinking_freq", "blinking_phase", "intensity", "size", "row", "col"]
+    "Star",
+    [
+        "freq_weights",
+        "freq_phases",
+        "intensity",
+        "size",
+        "row",
+        "col",
+    ],
 )
 
 MASK = Path("./mask.png")
@@ -15,14 +23,13 @@ N_STARS = 150
 BLUR_KERNEL_SIZE = 7
 N_FRAMES = len(list(Path("./hypercube_frames").glob("*.png")))
 OUTPUT_PATH = Path("./star_field_frames/")
+N_HARMONICS = 3
 
 
 def create_stars(
     n_stars: int,
-    min_freq: float,
-    max_freq: float,
-    phase_std: float,
     out_shape: tuple[int, int],
+    n_harmonics,
 ) -> list[Star]:
     star_field_area = BBox(
         int(0.05 * out_shape[0]),
@@ -42,10 +49,19 @@ def create_stars(
     star_positions += np.array((star_field_area.top, star_field_area.left))
     star_positions = star_positions.astype(np.int64)
 
+    # Generate frequency that is perfectly periodic
+    def make_random_normalized_vec(n):
+        arr = np.random.rand(n)
+        # give more weight to lower freqs
+        arr = np.exp(-np.arange(n) * 0.5)
+        # normalize
+        arr /= arr.sum()
+        return arr
+
     stars = [
         Star(
-            np.random.rand() * (max_freq - min_freq) + min_freq,
-            np.random.randn() * phase_std,
+            make_random_normalized_vec(n_harmonics),
+            np.random.rand(n_harmonics) * np.pi,
             np.random.rand(),
             np.random.rand(),
             pos[0],
@@ -58,23 +74,29 @@ def create_stars(
 
 
 def make_star_frame(
-    star: Star, out_shape: tuple[int, int], t: int
+    star: Star, out_shape: tuple[int, int], t: int, period: int, n_harmonics: int
 ) -> npt.NDArray[np.float64]:
     single_star_frame = np.zeros(out_shape, dtype=np.float64)
-
-    single_star_frame[star.row, star.col] = (
-        np.cos(star.blinking_freq * t + star.blinking_phase) ** 2
-    ) * star.intensity
 
     # As an optimization we only do the blur over the a star bounded in a tiny image
     # and then copy paste the patch into the output image
     cutout_size = 31
     half_cutout_size = int(cutout_size // 2)
 
+    harmonic_freqs = (1 / period) * np.arange(n_harmonics)
+
     star_cutout = np.zeros((cutout_size,) * 2)
-    star_cutout[half_cutout_size, half_cutout_size] = (
-        np.cos(star.blinking_freq * t + star.blinking_phase) ** 2
-    ) * star.intensity
+    # not 2 pi because the square doubles the freq
+    star_cutout[half_cutout_size, half_cutout_size] = np.sum(
+        [
+            (1 + np.cos(2 * np.pi * freq * t + freq_phase))
+            * star.intensity
+            * freq_weight
+            for freq_weight, freq_phase, freq in zip(
+                star.freq_weights, star.freq_phases, harmonic_freqs
+            )
+        ]
+    )
     star_cutout = cv2.GaussianBlur(
         star_cutout,
         (BLUR_KERNEL_SIZE, BLUR_KERNEL_SIZE),
@@ -96,16 +118,17 @@ def make_star_frame(
 
 
 mask: npt.NDArray = cv2.imread(str(MASK))[:, :, 0]
-stars = create_stars(N_STARS, 0.05, 0.15, np.pi, mask.shape)
+stars = create_stars(N_STARS, mask.shape, N_HARMONICS)
 
 
 for frame_idx in range(N_FRAMES):
     star_field = np.zeros(mask.shape, dtype=np.float64)
     for star in stars:
-        star_field = star_field + make_star_frame(star, mask.shape, frame_idx)
+        star_field = star_field + make_star_frame(
+            star, mask.shape, frame_idx, N_FRAMES, N_HARMONICS
+        )
 
     # Renormalize, invert and cast to uint8
-    star_field = star_field / np.max(star_field)
     star_field = 1 - star_field
     star_field *= 255
     star_field = star_field.astype(np.uint8)
