@@ -11,7 +11,7 @@ Star = namedtuple(
 )
 
 MASK = Path("./mask.png")
-N_STARS = 200
+N_STARS = 150
 BLUR_KERNEL_SIZE = 7
 N_FRAMES = len(list(Path("./hypercube_frames").glob("*.png")))
 OUTPUT_PATH = Path("./star_field_frames/")
