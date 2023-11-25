@@ -6,6 +6,9 @@ import numpy as np
 import numpy.typing as npt
 from scipy.stats.qmc import PoissonDisk
 from scipy.ndimage import gaussian_filter
+import matplotlib.pyplot as plt
+
+np.random.seed(123)
 
 Star = namedtuple(
     "Star",
@@ -67,10 +70,10 @@ def create_stars(
     stars = [
         Star(
             make_random_normalized_vec(n_harmonics),
-            np.random.rand(n_harmonics) * np.pi,
+            np.random.rand(n_harmonics) * 2 * np.pi,
             0.2,
             1 - np.random.rand() * 0.6,
-            np.random.rand() * 0.8 + 0.3,
+            np.random.rand() * 0.8 + 0.2,
             pos[0],
             pos[1],
         )
@@ -100,14 +103,14 @@ def make_star_frame(
     star_cutout[half_cutout_size, half_cutout_size] = np.sum(
         (
             (np.cos(2 * np.pi * harmonic_freqs * t + freq_phases) + 1)
-            * (dynamic_range / 2)
-            + star.min_intensity
+            * 0.5  # at this points we have a 0 to 1 function
+            * dynamic_range  # now a 0 to dynamic range function
+            + star.min_intensity  # rise the minimum
         )
         * freq_weights
     )
 
     blurred_star = gaussian_filter(star_cutout, star.size, mode="constant", radius=5)
-    # blurred_star = star_cutout
 
     half_kernel = int(BLUR_KERNEL_SIZE // 2)
 
@@ -139,7 +142,7 @@ max_frames = np.quantile(star_field_frames[star_field_frames != 0], 0.995)
 
 # normalize, clip, invert and cast to uint8 (leave a safety oneoff)
 star_field_frames = np.clip(star_field_frames, 0, max_frames) / max_frames
-star_field_frames = ((1 - star_field_frames) * 254).astype(np.uint8)
+star_field_frames = (star_field_frames * 255).astype(np.uint8)
 
 for frame_idx in range(N_FRAMES):
     cv2.imwrite(

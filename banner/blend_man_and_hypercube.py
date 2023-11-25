@@ -2,6 +2,7 @@ from pathlib import Path
 
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
 
 OUTPUT_FRAMES_FOLDER = Path("./horizon_man_looking_hypercube")
 MAN_INPUT = Path("./dithered_man.png")
@@ -21,7 +22,10 @@ for idx, input_cube_frame in enumerate(sorted(CUBE_INPUT.glob("frame_*.png"))):
     hypercube = cv2.resize(
         hypercube, None, fx=cube_scale, fy=cube_scale, interpolation=cv2.INTER_CUBIC
     )
-    man_ = man.copy()
+
+    # invert so that the reference image is black. This also helps stoppint overflow
+    # errors when we add the star field.
+    man_ = 255 - man.copy()
 
     # NOTE: Where the cube end up is hard coded and depends a lot on the output of
     # `dither_man.py`
@@ -29,7 +33,9 @@ for idx, input_cube_frame in enumerate(sorted(CUBE_INPUT.glob("frame_*.png"))):
     man_[
         offset_y : offset_y + hypercube.shape[0],
         offset_x : offset_x + hypercube.shape[1],
-    ] = hypercube
+    ] = (
+        255 - hypercube  # idem as above
+    )
     man_ += star_field * star_mask
 
     # NOTE: Finally trim a bit more from the top. Again strongly dependent on images
