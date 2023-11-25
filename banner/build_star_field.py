@@ -6,7 +6,6 @@ import numpy as np
 import numpy.typing as npt
 from scipy.stats.qmc import PoissonDisk
 from scipy.ndimage import gaussian_filter
-import matplotlib.pyplot as plt
 
 np.random.seed(123)
 
@@ -24,14 +23,13 @@ Star = namedtuple(
 )
 
 MASK = Path("./mask.png")
-N_STARS = 150
-POISSON_RADIUS = 0.05
-WEIGHTS_RANDOM_FACTOR = 0.3
-WEIGHTS_DECAY = 0.5
-BLUR_KERNEL_SIZE = 7
+N_STARS = 250
+POISSON_RADIUS = 0.07
+WEIGHTS_RANDOM_FACTOR = 0.35
+WEIGHTS_DECAY = 0.2
 N_FRAMES = len(list(Path("./hypercube_frames").glob("*.png")))
 OUTPUT_PATH = Path("./star_field_frames/")
-N_HARMONICS = 4
+N_HARMONICS = 8
 
 # TODO: Missing parameters for exponential distro
 
@@ -43,7 +41,13 @@ def create_stars(
     poisson_disk_radius: float,
     weights_randomness: float,
 ) -> list[Star]:
-    engine = PoissonDisk(d=2, radius=poisson_disk_radius, seed=42, optimization="lloyd")
+    engine = PoissonDisk(
+        d=2,
+        radius=poisson_disk_radius,
+        seed=42,
+        optimization="random-cd",
+        ncandidates=50,
+    )
     star_positions = engine.random(n_stars)
 
     msk_near_border = (
@@ -71,9 +75,9 @@ def create_stars(
         Star(
             make_random_normalized_vec(n_harmonics),
             np.random.rand(n_harmonics) * 2 * np.pi,
-            0.2,
-            1 - np.random.rand() * 0.6,
-            np.random.rand() * 0.8 + 0.2,
+            0.05,
+            0.9 + np.random.rand() * 0.1,
+            np.random.rand() * 0.7 + 0.1,
             pos[0],
             pos[1],
         )
@@ -90,7 +94,7 @@ def make_star_frame(
 
     # As an optimization we only do the blur over the a star bounded in a tiny image
     # and then copy paste the patch into the output image
-    cutout_size = 91
+    cutout_size = 31
     half_cutout_size = int(cutout_size // 2)
 
     harmonic_freqs = (1 / period) * np.arange(1, n_harmonics + 1)
@@ -110,9 +114,14 @@ def make_star_frame(
         * freq_weights
     )
 
-    blurred_star = gaussian_filter(star_cutout, star.size, mode="constant", radius=5)
+    kernel = cv2.getGaussianKernel(cutout_size, star.size)
+    alpha = kernel[half_cutout_size] ** 2
 
-    half_kernel = int(BLUR_KERNEL_SIZE // 2)
+    blurred_star = (
+        gaussian_filter(star_cutout, star.size, mode="constant", radius=5) / alpha
+    )
+
+    half_kernel = int(15 // 2)
 
     single_star_frame[
         star.row - half_kernel : star.row + half_kernel,
