@@ -3,7 +3,7 @@ from pathlib import Path
 
 import cv2
 import numpy as np
-
+import numpy.typing as npt
 
 BBox = namedtuple("BBox", ["top", "bottom", "left", "right"])
 Star = namedtuple(
@@ -17,7 +17,13 @@ N_FRAMES = len(list(Path("./hypercube_frames").glob("*.png")))
 OUTPUT_PATH = Path("./star_field_frames/")
 
 
-def create_stars(n_stars, max_freq, phase_std, out_shape):
+def create_stars(
+    n_stars: int,
+    min_freq: float,
+    max_freq: float,
+    phase_std: float,
+    out_shape: tuple[int, int],
+) -> list[Star]:
     star_field_area = BBox(
         int(0.05 * out_shape[0]),
         int(0.95 * out_shape[0]),
@@ -38,7 +44,7 @@ def create_stars(n_stars, max_freq, phase_std, out_shape):
 
     stars = [
         Star(
-            np.random.rand() * max_freq,
+            np.random.rand() * (max_freq - min_freq) + min_freq,
             np.random.randn() * phase_std,
             np.random.rand(),
             np.random.rand(),
@@ -51,7 +57,9 @@ def create_stars(n_stars, max_freq, phase_std, out_shape):
     return stars
 
 
-def make_star_frame(star, out_shape, t):
+def make_star_frame(
+    star: Star, out_shape: tuple[int, int], t: int
+) -> npt.NDArray[np.float64]:
     single_star_frame = np.zeros(out_shape, dtype=np.float64)
 
     single_star_frame[star.row, star.col] = (
@@ -87,8 +95,8 @@ def make_star_frame(star, out_shape, t):
     return single_star_frame
 
 
-mask = cv2.imread(str(MASK))[:, :, 0]
-stars = create_stars(N_STARS, 0.3, np.pi, mask.shape)
+mask: npt.NDArray = cv2.imread(str(MASK))[:, :, 0]
+stars = create_stars(N_STARS, 0.05, 0.15, np.pi, mask.shape)
 
 
 for frame_idx in range(N_FRAMES):
