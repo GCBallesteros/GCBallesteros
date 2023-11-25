@@ -83,6 +83,7 @@ for idx, angle in enumerate(np.linspace(0, np.pi / 2, 60)):
     segment_collection = [
         (s, e) for s, e in zip(stereo_coords[:, :, 0], stereo_coords[:, :, 1])
     ]
+
     lc = Line3DCollection(segment_collection, color="k")
     fig = plt.figure(figsize=(10, 10))
     ax = fig.add_subplot(111, projection="3d")

@@ -1,2 +1,10 @@
-convert -colors 32 -fuzz 50% -resize 50% -delay 7 -loop 0 *.png output.gif
-convert -crop 300x300+110+100 -repage 300x300+0+0 output.gif output-2.gif
+echo 'Dither man'
+python dither_man.py
+echo 'Bulding hypercube frames'
+python hypercube3.py
+echo 'Building star field frames'
+python build_star_field.py
+echo 'Combining man, cube and stars'
+python blend_man_and_hypercube.py
+echo 'Converting to animated gif'
+convert  -delay 7 -loop 0 ./horizon_man_looking_hypercube/*.png ./horizon_man_looking_hypercube/banner.gif

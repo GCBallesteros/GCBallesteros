@@ -1,5 +1,4 @@
 import cv2
-import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -96,24 +95,49 @@ def dither(img, method="floyd-steinberg", resize=False):
     return out
 
 
-if __name__ == "__main__":
-    img = cv2.imread("./man_horizon_wider.png")
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-    scale_ratio = 0.7
+def resize_image(img, scale_ratio):
     img_resized = cv2.resize(
         img, None, fx=scale_ratio, fy=scale_ratio, interpolation=cv2.INTER_CUBIC
     )
+
+    return img_resized
+
+
+def crop_image(img, left, bottom):
+    return img[:-bottom, left:]
+
+
+if __name__ == "__main__":
+    img = cv2.imread("./man_horizon_wider.png")
+
+    mask = (img.sum(axis=2) != 0).astype(np.uint8)
+    # Clean up a bit the mask
+    mask = cv2.dilate(mask, np.ones((3, 3)))
+
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    scale_ratio = 0.7
+    img_resized = resize_image(img, scale_ratio)
+    mask_resized = resize_image(mask, scale_ratio)
+
     dithered_img = dither(img_resized, "jarvis-judice-ninke")
 
     # Remove extraneous image that we don't want
-    dithered_img = dithered_img[:-170, 400:]
+    dithered_img = crop_image(dithered_img, 400, 170)
+    mask_resized = crop_image(mask_resized, 400, 170)
 
-    # Top and right pad the image to get a better aspect ratio for a banner
+    # Top pad the image to get some space above the man to place the hypercube
     expanded_img = np.zeros(
         (
             int(dithered_img.shape[0] * 2.0),
             int(dithered_img.shape[1]),
+        ),
+        dtype=dithered_img.dtype,
+    )
+    expanded_mask = np.zeros(
+        (
+            int(mask_resized.shape[0] * 2.0),
+            int(mask_resized.shape[1]),
         ),
         dtype=dithered_img.dtype,
     )
@@ -122,10 +146,11 @@ if __name__ == "__main__":
     expanded_img[
         y_offset : y_offset + dithered_img.shape[0], : dithered_img.shape[1]
     ] = dithered_img
+    expanded_mask[
+        y_offset : y_offset + mask_resized.shape[0], : mask_resized.shape[1]
+    ] = mask_resized
 
     # invert the image so that image is actually in black
     expanded_img = 255 * (1 - expanded_img.astype(np.int8))
     cv2.imwrite("dithered_man.png", expanded_img)
-    plt.figure()
-    plt.imshow(expanded_img)
-    plt.show()
+    cv2.imwrite("mask.png", expanded_mask)
