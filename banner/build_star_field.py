@@ -26,7 +26,7 @@ WEIGHTS_DECAY = 0.5
 BLUR_KERNEL_SIZE = 7
 N_FRAMES = len(list(Path("./hypercube_frames").glob("*.png")))
 OUTPUT_PATH = Path("./star_field_frames/")
-N_HARMONICS = 4
+N_HARMONICS = 6
 
 # TODO: Missing parameters for exponential distro
 
@@ -92,6 +92,7 @@ def make_star_frame(
     star_cutout = np.zeros((cutout_size,) * 2)
     # not 2 pi because the square doubles the freq
     star_cutout[half_cutout_size, half_cutout_size] = np.sum(
+        # Fourier sum
         [
             (1 + np.cos(2 * np.pi * freq * t + freq_phase))
             * star.intensity
