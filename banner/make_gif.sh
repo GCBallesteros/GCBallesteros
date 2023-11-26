@@ -6,10 +6,12 @@ echo 'Building star field frames'
 python build_star_field.py
 echo 'Combining man, cube and stars'
 python blend_man_and_hypercube.py
-echo 'Converting to animated gif'
-convert  -delay 7 -loop 0 ./horizon_man_looking_hypercube/*.png ./horizon_man_looking_hypercube/inverted_banner.gif
-echo 'Creating inverted version of gif'
-convert ./horizon_man_looking_hypercube/banner.gif -channel RGB -negate ./horizon_man_looking_hypercube/banner.gif
+echo 'Generating light banner frames'
+python frame_shaker.py
+echo 'Building dark banner gif'
+convert  -delay 7 -loop 0 ./horizon_man_looking_hypercube/*.png ./dark_banner.gif
+echo 'Building light banner gif'
+convert  -delay 7 -loop 0 ./shaken_day_frames/*.png ./light_banner.gif
 echo 'Optimizing gifs'
-mogrify -layers 'optimize' ./horizon_man_looking_hypercube/banner.gif
-mogrify -layers 'optimize' ./horizon_man_looking_hypercube/inverted_banner.gif
+mogrify -layers 'optimize' ./dark_banner.gif
+mogrify -layers 'optimize' ./light_banner.gif
