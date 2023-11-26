@@ -12,8 +12,7 @@ MAN_INPUT = Path("./dithered_man.png")
 CUBE_INPUT = Path("./hypercube_frames")
 
 SHAKED_CHANNELS = ["G", "B"]
-SHAKE_AMPLITUDE = 0.05
-SCALE_NOISE = 0.003
+SHAKE_AMPLITUDE = 2
 
 pulses = [
     Pulse(45, 13, 8),
@@ -53,16 +52,14 @@ def shaking_amplitude_transform(t, pulses):
     return transform
 
 
-def shake_the_world(img, t, pulses, shaked_channels, shake_amplitude, scale_noise):
+def shake_the_world(img, t, pulses, shaked_channels, shake_amplitude):
     n_rows = img.shape[0]
     n_cols = img.shape[1]
     for ch in shaked_channels:
-        row_disp = (rand() - 0.5) * 2 * shake_amplitude
-        col_disp = (rand() - 0.5) * 2 * shake_amplitude
-        scale_amp = rand() * scale_noise + (1 - scale_noise)
+        row_disp = (rand() - 0.5) * shake_amplitude
+        col_disp = (rand() - 0.5) * shake_amplitude
 
-        # noise_transform = np.array([[1, 0, row_disp], [0, 1, col_disp]])
-        noise_transform = np.array([[scale_amp, 0, col_disp], [0, scale_amp, row_disp]])
+        noise_transform = np.array([[1, 0, col_disp], [0, 1, row_disp]])
 
         img[:, :, channel_mapping[ch]] = cv2.warpAffine(
             img[:, :, channel_mapping[ch]],
@@ -97,6 +94,6 @@ for idx, input_cube_frame in enumerate(sorted(CUBE_INPUT.glob("frame_*.png"))):
     # NOTE: Finally trim a bit more from the top. Again strongly dependent on images
     man_ = man_[50:, :]
 
-    man_ = shake_the_world(man_, idx, pulses, SHAKED_CHANNELS, SHAKE_AMPLITUDE, SCALE_NOISE)
+    man_ = shake_the_world(man_, idx, pulses, SHAKED_CHANNELS, SHAKE_AMPLITUDE)
 
     cv2.imwrite(str(OUTPUT_FRAMES_FOLDER / f"frame_{idx:03}.png"), man_)
