@@ -31,8 +31,6 @@ N_FRAMES = len(list(Path("./hypercube_frames").glob("*.png")))
 OUTPUT_PATH = Path("./star_field_frames/")
 N_HARMONICS = 8
 
-# TODO: Missing parameters for exponential distro
-
 
 def create_stars(
     n_stars: int,
@@ -40,6 +38,7 @@ def create_stars(
     n_harmonics: int,
     poisson_disk_radius: float,
     weights_randomness: float,
+    weights_decay: float,
 ) -> list[Star]:
     engine = PoissonDisk(
         d=2,
@@ -66,7 +65,7 @@ def create_stars(
     def make_random_normalized_vec(n):
         arr = 1 + (np.random.rand(n) - 0.5) * weights_randomness
         # give more weight to lower freqs
-        arr = arr * np.exp(-np.arange(n) * WEIGHTS_DECAY)
+        arr = arr * np.exp(-np.arange(n) * weights_decay)
         # normalize
         arr /= arr.sum()
         return arr
@@ -136,7 +135,12 @@ def make_star_frame(
 
 mask: npt.NDArray = cv2.imread(str(MASK))[:, :, 0]
 stars = create_stars(
-    N_STARS, mask.shape, N_HARMONICS, POISSON_RADIUS, WEIGHTS_RANDOM_FACTOR
+    N_STARS,
+    mask.shape,
+    N_HARMONICS,
+    POISSON_RADIUS,
+    WEIGHTS_RANDOM_FACTOR,
+    WEIGHTS_DECAY,
 )
 
 
