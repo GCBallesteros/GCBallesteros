@@ -1,7 +1,7 @@
 <picture>
- <source media="(prefers-color-scheme: dark)" srcset="./banner/horizon_man_looking_hypercube/banner.gif">
- <source media="(prefers-color-scheme: light)" srcset="./banner/horizon_man_looking_hypercube/inverted_banner.gif">
- <img alt="man-looking-at-rotating-hypercube" src="./banner/horizon_man_looking_hypercube/banner.gif">
+ <source media="(prefers-color-scheme: dark)" srcset="./banner/light_banner.gif">
+ <source media="(prefers-color-scheme: light)" srcset="./banner/dark_banner.gif">
+ <img alt="man-looking-at-rotating-hypercube" src="./banner/dark_banner.gif">
 </picture>
 
 I'm a Data Scientist and Scientific Software Developer with a knack for
