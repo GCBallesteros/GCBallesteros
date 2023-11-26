@@ -22,7 +22,7 @@ Star = namedtuple(
     ],
 )
 
-MASK = Path("./mask.png")
+MASK = Path("./assets/mask.png")
 N_STARS = 250
 POISSON_RADIUS = 0.07
 WEIGHTS_RANDOM_FACTOR = 0.35

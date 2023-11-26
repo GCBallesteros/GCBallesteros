@@ -2,13 +2,12 @@ from pathlib import Path
 
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
 
 OUTPUT_FRAMES_FOLDER = Path("./horizon_man_looking_hypercube")
-MAN_INPUT = Path("./dithered_man.png")
+MAN_INPUT = Path("./assets/dithered_man.png")
 CUBE_INPUT = Path("./hypercube_frames")
 STAR_FRAMES = Path("./star_field_frames")
-MASK_FILE = "./mask.png"
+MASK_FILE = "./assets/mask.png"
 
 man = cv2.imread(str(MAN_INPUT))
 

@@ -8,7 +8,7 @@ from numpy.random import rand
 Pulse = namedtuple("Pulse", ["t0", "A", "sigma"])
 
 OUTPUT_FRAMES_FOLDER = Path("./shaken_day_frames")
-MAN_INPUT = Path("./dithered_man.png")
+MAN_INPUT = Path("./assets/dithered_man.png")
 CUBE_INPUT = Path("./hypercube_frames")
 
 SHAKED_CHANNELS = ["G", "B"]

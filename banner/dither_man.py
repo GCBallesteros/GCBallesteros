@@ -108,7 +108,7 @@ def crop_image(img, left, bottom):
 
 
 if __name__ == "__main__":
-    img = cv2.imread("./man_horizon_wider.png")
+    img = cv2.imread("./assets/man_horizon_wider.png")
 
     mask = (img.sum(axis=2) != 0).astype(np.uint8)
     # Clean up a bit the mask
@@ -152,5 +152,5 @@ if __name__ == "__main__":
 
     # invert the image so that image is actually in black
     expanded_img = 255 * (1 - expanded_img.astype(np.int8))
-    cv2.imwrite("dithered_man.png", expanded_img)
-    cv2.imwrite("mask.png", expanded_mask)
+    cv2.imwrite("./assets/dithered_man.png", expanded_img)
+    cv2.imwrite("./assets/mask.png", expanded_mask)
