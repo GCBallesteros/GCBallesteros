@@ -4,7 +4,7 @@
  <img alt="man-looking-at-rotating-hypercube" src="./banner/dark_banner.gif">
 </picture>
 
-Check out the alternatve theme banner ([dark](https://www.github.com/GCBallesteros/GCBallesteros/banner/dark_banner.gif)/[light](https://www.github.com/GCBallesteros/GCBallesteros/banner/light_banner.gif)) by switching Github themes!
+Check out the alternatve theme banner ([dark](https://www.github.com/GCBallesteros/GCBallesteros/tree/main/banner/dark_banner.gif)/[light](https://www.github.com/GCBallesteros/GCBallesteros/tree/main/banner/light_banner.gif)) by switching Github themes!
 
 I'm a Data Scientist and Scientific Software Developer with a knack for
 optimization. I enjoy it the most when I work where engineering and software
