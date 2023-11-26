@@ -26,7 +26,7 @@ MASK = Path("./mask.png")
 N_STARS = 250
 POISSON_RADIUS = 0.07
 WEIGHTS_RANDOM_FACTOR = 0.35
-WEIGHTS_DECAY = 0.2
+WEIGHTS_DECAY = 0.07
 N_FRAMES = len(list(Path("./hypercube_frames").glob("*.png")))
 OUTPUT_PATH = Path("./star_field_frames/")
 N_HARMONICS = 8
@@ -77,7 +77,7 @@ def create_stars(
             np.random.rand(n_harmonics) * 2 * np.pi,
             0.05,
             0.9 + np.random.rand() * 0.1,
-            np.random.rand() * 0.7 + 0.1,
+            np.random.rand() * 0.8 + 0.3,
             pos[0],
             pos[1],
         )
