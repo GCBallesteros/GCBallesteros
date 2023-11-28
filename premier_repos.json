@@ -21,7 +21,7 @@
     "category": "vim",
     "description": "Edit jupyter notebooks from the comfort of neovim with the power of [jupytext](https://github.com/mwouts/jupytext)",
     "display": true,
-    "lang": "vim"
+    "lang": "lua"
   },
   "GCBallesteros/vim-textobj-hydrogen": {
     "category": "vim",
