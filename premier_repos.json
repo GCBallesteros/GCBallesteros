@@ -14,6 +14,12 @@
   "GCBallesteros/jupytext.vim": {
     "category": "vim",
     "description": "A fork from goerz/jupytext.vim to add support for different jupytext styles",
+    "display": false,
+    "lang": "vim"
+  },
+  "GCBallesteros/jupytext.nvim": {
+    "category": "vim",
+    "description": "Edit jupyter notebooks from the comfort of neovim with the power of [jupytext](https://github.com/mwouts/jupytext)",
     "display": true,
     "lang": "vim"
   },
