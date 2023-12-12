@@ -12,7 +12,7 @@ development intersect. In my free time you will find me learning new
 programming languages, implementing fancy algorithms, playing music, enjoying
 nature and tweaking my neovim config.
 
-Currently I'm a Data Scientist (and more) @ [Kuva Space](www.kuvaspace.com)
+Currently I'm a Senior Data Scientist (and more) @ [Kuva Space](www.kuvaspace.com)
 helping build a constellation of hyperspectral cubesats
 
 - Other places to find me:
