@@ -1,7 +1,7 @@
 echo 'Dither man'
 python dither_man.py
 echo 'Bulding hypercube frames'
-python hypercube3.py
+python hypercube.py
 echo 'Building star field frames'
 python build_star_field.py
 echo 'Combining man, cube and stars'
