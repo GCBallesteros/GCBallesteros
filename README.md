@@ -4,7 +4,7 @@
  <img alt="man-looking-at-rotating-hypercube" src="./banner/dark_banner.gif">
 </picture>
 
-Check out the alternatve theme banner ([dark](https://www.github.com/GCBallesteros/GCBallesteros/tree/main/banner/dark_banner.gif)/[light](https://www.github.com/GCBallesteros/GCBallesteros/tree/main/banner/light_banner.gif)) by switching Github themes!
+Check out the alternatve banner ([dark](https://www.github.com/GCBallesteros/GCBallesteros/tree/main/banner/dark_banner.gif)/[light](https://www.github.com/GCBallesteros/GCBallesteros/tree/main/banner/light_banner.gif)) by switching Github themes or [check how I procedurally generated them](https://github.com/GCBallesteros/GCBallesteros/tree/main/banner)!
 
 I'm a Data Scientist and Scientific Software Developer with a knack for
 optimization. I enjoy it the most when I work where engineering and software
@@ -13,7 +13,7 @@ programming languages, implementing fancy algorithms, playing music, enjoying
 nature and tweaking my neovim config.
 
 Currently I'm a Senior Data Scientist (and more) @ [Kuva Space](www.kuvaspace.com)
-helping build a constellation of hyperspectral cubesats
+helping build a constellation of hyperspectral satellites.
 
 - Other places to find me:
   - 🌐 Blog: [Maxwell Rules](https://www.maxwellrules.com)
