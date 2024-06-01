@@ -22,7 +22,7 @@ helping build a constellation of hyperspectral cubesats
 
 ### Open Source Projects 
 
-Total ⭐: 298
+Total ⭐: 297
 
 #### Scientific algorithms (Σ⭐=26)
   - [readPTU](https://www.github.com/QuantumPhotonicsLab/readPTU) (⭐ 15): <img src="https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white" height="18" style="vertical-align: middle;"> Code developed during my PhD to analyze multi-GB photon correlation experimental data very quick. [Check the paper!](https://iopscience.iop.org/article/10.1088/1748-0221/14/06/T06011/meta)
@@ -32,8 +32,8 @@ Total ⭐: 298
   - [TransferMatrixMethod](https://www.github.com/GCBallesteros/TransferMatrixMethod) (⭐ 1): <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" height="18" style="vertical-align: middle;"> A fast and compact implementation of the old and trustworthy Transfer Matrix Method to analyze optical multilayer structures
   - ... and more
 
-#### Neovim (Σ⭐=241)
-  - [NotebookNavigator.nvim](https://www.github.com/GCBallesteros/NotebookNavigator.nvim) (⭐ 152): <img src="https://img.shields.io/badge/lua-%232C2D72.svg?style=for-the-badge&logo=lua&logoColor=white" height="18" style="vertical-align: middle;"> VSCode style code cells for neovim and functions to manipulate them
+#### Neovim (Σ⭐=240)
+  - [NotebookNavigator.nvim](https://www.github.com/GCBallesteros/NotebookNavigator.nvim) (⭐ 151): <img src="https://img.shields.io/badge/lua-%232C2D72.svg?style=for-the-badge&logo=lua&logoColor=white" height="18" style="vertical-align: middle;"> VSCode style code cells for neovim and functions to manipulate them
   - [jupytext.nvim](https://www.github.com/GCBallesteros/jupytext.nvim) (⭐ 58): <img src="https://img.shields.io/badge/lua-%232C2D72.svg?style=for-the-badge&logo=lua&logoColor=white" height="18" style="vertical-align: middle;"> Edit jupyter notebooks from the comfort of neovim with the power of [jupytext](https://github.com/mwouts/jupytext)
   - [vim-textobj-hydrogen](https://www.github.com/GCBallesteros/vim-textobj-hydrogen) (⭐ 30): <img src="https://img.shields.io/badge/VIM-%2311AB00.svg?style=for-the-badge&logo=vim&logoColor=white" height="18" style="vertical-align: middle;"> An extension to vim-textobj to add code cell objects
   - [machinegun.nvim](https://www.github.com/GCBallesteros/machinegun.nvim) (⭐ 1): <img src="https://img.shields.io/badge/lua-%232C2D72.svg?style=for-the-badge&logo=lua&logoColor=white" height="18" style="vertical-align: middle;"> A plugin to make it easy to write multi-user/machine configurations
