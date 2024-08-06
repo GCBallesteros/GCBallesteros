@@ -22,10 +22,10 @@ helping build a constellation of hyperspectral cubesats
 
 ### Open Source Projects 
 
-Total ⭐: 339
+Total ⭐: 340
 
-#### Scientific algorithms (Σ⭐=29)
-  - [readPTU](https://www.github.com/QuantumPhotonicsLab/readPTU) (⭐ 16): <img src="https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white" height="18" style="vertical-align: middle;"> Code developed during my PhD to analyze multi-GB photon correlation experimental data very quick. [Check the paper!](https://iopscience.iop.org/article/10.1088/1748-0221/14/06/T06011/meta)
+#### Scientific algorithms (Σ⭐=30)
+  - [readPTU](https://www.github.com/QuantumPhotonicsLab/readPTU) (⭐ 17): <img src="https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white" height="18" style="vertical-align: middle;"> Code developed during my PhD to analyze multi-GB photon correlation experimental data very quick. [Check the paper!](https://iopscience.iop.org/article/10.1088/1748-0221/14/06/T06011/meta)
   - [trattoria](https://www.github.com/GCBallesteros/trattoria) (⭐ 6): <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" height="18" style="vertical-align: middle;"> Python wrapper for the fastest streaming algorithms for your TTTR data
   - [tttr-toolbox](https://www.github.com/GCBallesteros/tttr-toolbox) (⭐ 3): <img src="https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white" height="18" style="vertical-align: middle;"> The rust-y core of the Trattoria. Blazingly fast streaming algorithms to analyze TTTR experimental data
   - [foureg](https://www.github.com/GCBallesteros/foureg) (⭐ 2): <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" height="18" style="vertical-align: middle;"> GPU/Pytorch reimplementation of matejak/imreg focusing on performance and production-ready features
