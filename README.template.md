@@ -36,7 +36,7 @@ Total ⭐: {{total_stars}}
   {% endfor -%}
   - ... and more
 
-### <img src="https://news.ycombinator.com/y18.svg" height="25" style="vertical-align: middle;"> As seen on Hacker News <img src="https://news.ycombinator.com/y18.svg" height="25" style="vertical-align: middle;"> 
+### <img src="https://news.ycombinator.com/y18.svg" height="21" style="vertical-align: middle;"> As seen on Hacker News <img src="https://news.ycombinator.com/y18.svg" height="21" style="vertical-align: middle;"> 
 
 - [Homographies: Looking through a pinhole](https://www.maxwellrules.com/math/looking_through_a_pinhole.html) - [HN Discussion](https://news.ycombinator.com/item?id=37347903)
 - [Extending Python with Rust](https://maxwellrules.com/programming/rusty-python.html) - [HN Discussion](https://news.ycombinator.com/item?id=34145691)
