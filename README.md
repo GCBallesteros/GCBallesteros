@@ -38,3 +38,9 @@ Total ⭐: 393
   - [vim-textobj-hydrogen](https://www.github.com/GCBallesteros/vim-textobj-hydrogen) (⭐ 28): <img src="https://img.shields.io/badge/VIM-%2311AB00.svg?style=for-the-badge&logo=vim&logoColor=white" height="18" style="vertical-align: middle;"> An extension to vim-textobj to add code cell objects
   - [machinegun.nvim](https://www.github.com/GCBallesteros/machinegun.nvim) (⭐ 1): <img src="https://img.shields.io/badge/lua-%232C2D72.svg?style=for-the-badge&logo=lua&logoColor=white" height="18" style="vertical-align: middle;"> A plugin to make it easy to write multi-user/machine configurations
   - ... and more
+
+### <img src="https://news.ycombinator.com/y18.svg" height="21" style="vertical-align: middle;"> As seen on Hacker News <img src="https://news.ycombinator.com/y18.svg" height="21" style="vertical-align: middle;"> 
+
+- [Homographies: Looking through a pinhole](https://www.maxwellrules.com/math/looking_through_a_pinhole.html) - [HN Discussion](https://news.ycombinator.com/item?id=37347903)
+- [Extending Python with Rust](https://maxwellrules.com/programming/rusty-python.html) - [HN Discussion](https://news.ycombinator.com/item?id=34145691)
+- [I have reached Vim nirvana](https://www.maxwellrules.com/misc/nvim_jupyter.html) - [HN Discussion](https://news.ycombinator.com/item?id=34145680)
