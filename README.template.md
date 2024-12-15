@@ -35,3 +35,7 @@ Total ⭐: {{total_stars}}
   - [{{repo.name}}](https://www.github.com/{{repo.owner}}/{{repo.name}}) (⭐ {{repo.stars}}): {{badges[repo.lang]}} {{repo.description}}
   {% endfor -%}
   - ... and more
+
+### <img src="https://news.ycombinator.com/y18.svg" height="30" style="vertical-align: middle;"> As seen on Hacker News <img src="https://news.ycombinator.com/y18.svg" height="30" style="vertical-align: middle;"> 
+
+- [Homographies: Looking through a pinhole](https://www.maxwellrules.com/math/looking_through_a_pinhole.html) - [HN Discussion](https://news.ycombinator.com/item?id=37347903)
