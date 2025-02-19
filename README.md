@@ -22,7 +22,7 @@ helping build a constellation of hyperspectral cubesats
 
 ### Open Source Projects 
 
-Total ⭐: 424
+Total ⭐: 425
 
 #### Scientific algorithms (Σ⭐=33)
   - [readPTU](https://www.github.com/QuantumPhotonicsLab/readPTU) (⭐ 19): <img src="https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white" height="18" style="vertical-align: middle;"> Code developed during my PhD to analyze multi-GB photon correlation experimental data very quick. [Check the paper!](https://iopscience.iop.org/article/10.1088/1748-0221/14/06/T06011/meta)
